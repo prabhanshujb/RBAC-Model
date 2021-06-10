@@ -35,10 +35,12 @@ exports.rolepermission = async (req, res, next) =>{
           console.log(result);
           res.status(201).json({
             message: "rolePermission stored",
+            result: result,
             createdOrder: {
               _id: result._id,
-              Permission: result.Permission,
-              Role: result.Role
+
+              Permission: result.name,
+              Role: result.name
             },
             request:
             {
