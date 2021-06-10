@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const userRoutes = require('./config/Routes/user');
 const roleRoutes = require('./config/Routes/role');
 const permissionRoutes = require('./config/Routes/permission');
-const userRoleRoutes = require('./config/Routes/assignUserRole');
 
 
 //handling cors errors
@@ -40,8 +39,6 @@ app.use((req, res, next) =>{
 app.use('/user', userRoutes);
 app.use('/role', roleRoutes);
 app.use('/permission', permissionRoutes);
-app.use('/assignUserRole', userRoleRoutes);
-
 
 app.use((req, res, next) => {
     const error = new Error("Not Found");

@@ -8,7 +8,7 @@ const PermissionsSchema = new Schema({
         required: true,
         min: 3,
         max: 255
-    },
+    }
 });
 
 const Permissions = mongoose.model('permissionsmodel', PermissionsSchema);
