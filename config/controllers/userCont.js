@@ -88,3 +88,22 @@ exports.userRegister = (req, res, next) => {
         });
       });
   };
+
+  exports.getUser = async (id) => {
+    const query = {};
+    query._id = id;
+    console.log(query);
+    const user = await User.findOne(query).exec();
+    if(!user){
+      res.status(404).json({
+          message: "role not found"
+      });
+  }
+    return user;
+    // .catch(err => {
+    //     console.log(err);
+    //     res.status(500).json({
+    //         error: err
+    //     });
+    // });
+  }

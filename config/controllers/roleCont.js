@@ -41,6 +41,7 @@ exports.roleCreateNew = (req, res, next) => {
         message: "role already exist"
       });
     }
+});
     const role = new Role({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -66,7 +67,6 @@ exports.roleCreateNew = (req, res, next) => {
     error: err
     });
     });
-});
 };
 
 exports.roleGetId = (req, res, next) => { 

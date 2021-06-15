@@ -3,8 +3,16 @@ const Schema = mongoose.Schema;
 
 const rolePermissionsSchema = new Schema({
     id: mongoose.Schema.Types.ObjectId,
-    permissionsId: { type: mongoose.Schema.Types.ObjectId, ref: 'usermodel', required: true },
-    roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'rolemodel', required: true },
+    permissionsId: { type: mongoose.Schema.Types.ObjectId, 
+        ref: 'usermodel', 
+        required: true,
+        unique: true 
+    },
+    roleId: { type: mongoose.Schema.Types.ObjectId, 
+        ref: 'rolemodel', 
+        required: true,
+        unique: true 
+    },
 
 });
 

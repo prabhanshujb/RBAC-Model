@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const userRole = require("../models/userRolemodel");
+const userRole = require("../models/userRoleModel");
 const User = require("../models/usermodel");
 const Role = require("../models/rolemodel");
 
@@ -8,6 +8,7 @@ const Role = require("../models/rolemodel");
 exports.assignRoles = async (req, res, next) => {
     const query = {};
     query._id = req.body.roleId;
+    console.log(query._id);
     const role = await Role.findById(query);
     console.log(role);
     if (!role) {
@@ -30,7 +31,7 @@ exports.assignRoles = async (req, res, next) => {
         roleId: req.body.roleId,
 
     })
-    return userrole.save()
+    userrole.save()
     .then(result => {
         console.log(result);
         res.status(201).json({
@@ -55,3 +56,16 @@ exports.assignRoles = async (req, res, next) => {
     });
 }
 
+exports.getUserRole = async (id) => {
+    const query = {};
+    query.userId = id;
+    console.log("ssdf", query);
+    const user_Role = await userRole.findOne(query).exec();
+    console.log("adsd", user_Role);
+    if(!user_Role){
+        res.status(404).json({
+            message: "userrole not found"
+        });
+    }
+    return user_Role;
+}
