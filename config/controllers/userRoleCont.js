@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const userRole = require("../models/userRoleModel");
 const User = require("../models/usermodel");
 const Role = require("../models/rolemodel");
+const assignRolePermission = require('../controllers/assignRolePermCont')
 
 
 exports.assignRoles = async (req, res, next) => {
@@ -59,13 +60,25 @@ exports.assignRoles = async (req, res, next) => {
 exports.getUserRole = async (id) => {
     const query = {};
     query.userId = id;
-    console.log("ssdf", query);
+    //console.log("ssdf", query);
     const user_Role = await userRole.findOne(query).exec();
-    console.log("adsd", user_Role);
+    //console.log("adsd", user_Role);
     if(!user_Role){
         res.status(404).json({
             message: "userrole not found"
         });
     }
-    return user_Role;
+    console.log("rolePERMISSION");
+    const role_Id = user_Role.roleId;
+    //console.log(role_Id);
+    const role_permission = await assignRolePermission.getRolePermission(role_Id)
+    //console.log("get", role_permission);
+    if(!role_permission){
+        res.status(401).json({
+            message: " role-permission not valid"
+        })
+    }
+    const userrole = user_Role;
+    //console.log("qewq",userrole);
+    return userrole;
 }

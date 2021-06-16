@@ -4,7 +4,6 @@ const rolePerm = require("../models/rolePermissionsModel");
 const Permission = require("../models/permissionsmodel");
 const Role = require("../models/rolemodel");
 const User = require("../models/userRoleModel")
-const userRole = require('../model/userRoleCont')
 
 exports.rolepermission = async (req, res, next) => {
   const permissionquery = {};
@@ -59,31 +58,18 @@ exports.rolepermission = async (req, res, next) => {
 };
 
 
-exports.getRolePermission = async (id, req, res, next) => {
-  const user = userRole.findOne(id)
-  console.log(user)
-    .populate("permission")
-    .exec()
-    .then(result => {
-      if (!result) {
-        return res.status(404).json({
-          message: "user not found"
-        });
-      }
-      const role = rolePerm.findOne()
-      res.status(200).json({
-        order: order,
-        request: {
-          message: 'orders details',
-          orderId: req.params.ordersId,
-          type: "GET",
-          url: "http://localhost:3000/orders"
-        }
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
+exports.getRolePermission = async (id) => {
+  const query = {};
+  query.roleId = id;
+  //console.log("RP", query);
+  const Role_permission = await rolePerm.findOne(query).exec();
+  //console.log("RPM", Role_permission.roleId);
+  if(!Role_permission.roleId){
+      res.status(404).json({
+          message: "rolepermission not found"
+      }); 
+  }
+  const thisrole = Role_permission.roleId;
+  //console.log("this is",thisrole);
+  return thisrole;
 };

@@ -11,7 +11,6 @@ const rolePermissionsSchema = new Schema({
     roleId: { type: mongoose.Schema.Types.ObjectId, 
         ref: 'rolemodel', 
         required: true,
-        unique: true 
     },
 
 });

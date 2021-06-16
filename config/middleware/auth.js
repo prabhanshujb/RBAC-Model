@@ -8,9 +8,9 @@ module.exports = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_KEY);
         console.log("decoded");
-        console.log(decoded.userId);
+        //console.log(decoded.userId);
         const user = await userM.getUser(decoded.userId);
-        console.log(user);
+        //console.log(user);
         if(!user){
             res.status(401).json({
                 message: "logged-in user not valid"
@@ -18,19 +18,10 @@ module.exports = async (req, res, next) => {
         }
         console.log("UserRole");
         const user_role = await userRoleAssign.getUserRole(decoded.userId);
-        console.log(user_role);
+        //console.log("is user",user_role);
         if(!user_role){
             res.status(401).json({
                 message: " user-role not valid"
-            })
-        }
-
-        console.log("RolePermission");
-        const role_permission = await assignRolePermission.getRolePermission(decoded.userId);
-        console.log(role_permission);
-        if(!role_permission){
-            res.status(401).json({
-                message: " role-permission not valid"
             })
         }
 
